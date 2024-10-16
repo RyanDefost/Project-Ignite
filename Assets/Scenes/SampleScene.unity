@@ -560,7 +560,7 @@ MonoBehaviour:
   _distance: 7
   _mouseSpeed: 4
   _pitchSpeed: 2
-  _zoomSpeed: 0.1
+  _zoomSpeed: 0.2
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
