@@ -20,10 +20,15 @@ public class CameraMovement : MonoBehaviour
     private Vector3 _lastPosition;
     private Vector3 _lastPitch;
 
+    public bool CanReceiveInput = true;
+
     void Start() => _camera = GetComponent<Camera>();
 
     void FixedUpdate()
     {
+        if (!CanReceiveInput)
+            return;
+
         //Sets the distance of the camera.
         SetCameraDistanceChange();
         if (_distance != _camera.orthographicSize)
