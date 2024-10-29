@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 52e67fed3c941354a89268f45de4f889
+guid: 413479ea615a44840b62d379d43655e7
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,7 +7,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: ekster
+      name: ekster.001
     second: {fileID: 2100000, guid: 0e6e632c4e9daac4aa3b66517c68c169, type: 2}
   - first:
       type: UnityEngine:Material
