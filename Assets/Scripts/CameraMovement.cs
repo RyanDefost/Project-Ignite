@@ -114,4 +114,10 @@ public class CameraMovement : MonoBehaviour
         _distance += -scrollInput * _zoomSpeed;
         _distance = Mathf.Clamp(_distance, 1, 10);
     }
+
+    /// <summary>
+    /// Gets the center rotation that the camera is rotated around to move it.
+    /// </summary>
+    public Quaternion GetCenterRotation() => _centerPosition.transform.rotation;
+    public void SetCenterRotation(Quaternion eulerAngles) => _centerPosition.transform.rotation = eulerAngles;
 }
