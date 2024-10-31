@@ -20,10 +20,15 @@ public class CameraMovement : MonoBehaviour
     private Vector3 _lastPosition;
     private Vector3 _lastPitch;
 
+    public bool CanReceiveInput = true;
+
     void Start() => _camera = GetComponent<Camera>();
 
     void FixedUpdate()
     {
+        if (!CanReceiveInput)
+            return;
+
         //Sets the distance of the camera.
         SetCameraDistanceChange();
         if (_distance != _camera.orthographicSize)
@@ -109,4 +114,10 @@ public class CameraMovement : MonoBehaviour
         _distance += -scrollInput * _zoomSpeed;
         _distance = Mathf.Clamp(_distance, 1, 10);
     }
+
+    /// <summary>
+    /// Gets the center rotation that the camera is rotated around to move it.
+    /// </summary>
+    public Quaternion GetCenterRotation() => _centerPosition.transform.rotation;
+    public void SetCenterRotation(Quaternion eulerAngles) => _centerPosition.transform.rotation = eulerAngles;
 }
