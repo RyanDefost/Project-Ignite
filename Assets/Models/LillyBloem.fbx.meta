@@ -7,12 +7,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: ekster.001
-    second: {fileID: 2100000, guid: 0e6e632c4e9daac4aa3b66517c68c169, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: ekster.002
+      name: ekster
     second: {fileID: 2100000, guid: 0e6e632c4e9daac4aa3b66517c68c169, type: 2}
   materials:
     materialImportMode: 2
