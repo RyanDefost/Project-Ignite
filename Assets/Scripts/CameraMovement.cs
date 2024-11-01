@@ -7,7 +7,8 @@ public class CameraMovement : MonoBehaviour
 {
     [SerializeField] private GameObject _centerPosition;
     [Space]
-    [SerializeField] private float _distance = 2;
+    [SerializeField] private float _maxDistance = 20;
+    private float _distance = 2;
 
     [Header("Speed")]
     [SerializeField] private float _mouseSpeed = 5;
@@ -23,13 +24,12 @@ public class CameraMovement : MonoBehaviour
     public bool CanReceiveInput = true;
 
     void Start() => _camera = GetComponent<Camera>();
-
     void FixedUpdate()
     {
         if (!CanReceiveInput)
             return;
 
-        //Sets the distance of the camera.
+        //Sets the _distance of the camera.
         SetCameraDistanceChange();
         if (_distance != _camera.transform.position.z)
         {
@@ -61,7 +61,7 @@ public class CameraMovement : MonoBehaviour
     /// <summary>
     /// Takes the current and last position of the mouse and gives the direction the mouse is moving.
     /// </summary>
-    /// <returns>Returns the normalized distance of the X and Y position as a vector3</returns>
+    /// <returns>Returns the normalized _distance of the X and Y position as a vector3</returns>
     private Vector3 GetCameraDiraction()
     {
         Vector3 currentPosition = _mousePosition;
@@ -107,7 +107,7 @@ public class CameraMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets the distance based on the input of the scroll wheel (1 or -1).
+    /// Sets the _distance based on the input of the scroll wheel (1 or -1).
     /// </summary>
     private void SetCameraDistanceChange()
     {
@@ -117,7 +117,7 @@ public class CameraMovement : MonoBehaviour
         float scrollInput = Input.mouseScrollDelta.x + Input.mouseScrollDelta.y;
 
         _distance += -scrollInput * _zoomSpeed;
-        _distance = Mathf.Clamp(_distance, 1, 10);
+        _distance = Mathf.Clamp(_distance, 1, _maxDistance);
     }
 
     /// <summary>

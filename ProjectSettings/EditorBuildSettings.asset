@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/MainScene.unity
+    guid: 3b464d67540e5334d916cb98b7d17d17
+  - enabled: 1
+    path: Assets/DagmarFolder/EndScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects: {}
