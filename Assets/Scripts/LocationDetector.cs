@@ -62,13 +62,14 @@ public class LocationDetector : MonoBehaviour
         Quaternion currentCameraRotation = _cameraMovement.GetCenterObject().transform.rotation;
         _cameraMovement.CanReceiveInput = false;
 
-        for (float i = 0; i < 1; i += 0.1f)
+        for (float i = 0; i <= 1; i += 0.1f)
         {
             yield return new WaitForSeconds(0.01f);
 
             Quaternion lerpRotation = Quaternion.Lerp(currentCameraRotation, _destinations[_currentDestination].transform.rotation, i);
             _cameraMovement.SetCenterRotation(lerpRotation);
         }
+        _cameraMovement.SetCenterRotation(_destinations[_currentDestination].transform.rotation);
 
         //Activate the UI when object is found.
         yield return new WaitForSeconds(1f);
