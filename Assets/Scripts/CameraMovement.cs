@@ -31,8 +31,13 @@ public class CameraMovement : MonoBehaviour
 
         //Sets the distance of the camera.
         SetCameraDistanceChange();
-        if (_distance != _camera.orthographicSize)
-            _camera.orthographicSize = _distance;
+        if (_distance != _camera.transform.position.z)
+        {
+            Vector3 _currentCameraDistance = _camera.transform.localPosition;
+            _currentCameraDistance = new Vector3(_currentCameraDistance.x, _currentCameraDistance.y, _distance);
+
+            _camera.transform.localPosition = _currentCameraDistance;
+        }
 
         _mousePosition = Input.mousePosition;
 
@@ -118,6 +123,8 @@ public class CameraMovement : MonoBehaviour
     /// <summary>
     /// Gets the center rotation that the camera is rotated around to move it.
     /// </summary>
-    public Quaternion GetCenterRotation() => _centerPosition.transform.rotation;
+    public GameObject GetCenterObject() => _centerPosition;
     public void SetCenterRotation(Quaternion eulerAngles) => _centerPosition.transform.rotation = eulerAngles;
+
+    public void SetDistance(float distance) => _distance = distance;
 }
