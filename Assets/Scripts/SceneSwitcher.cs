@@ -3,7 +3,17 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitcher : MonoBehaviour
 {
-    public void SetFinalScene() => SceneManager.LoadScene("endScene");
-    public void SetMainScene() => SceneManager.LoadScene("MainScene");
+    private AudioSource _audioSource;
+
+    private void Awake() => DontDestroyOnLoad(this);
+    private void Start() => _audioSource = GetComponent<AudioSource>();
+
+    public void SetScene(string sceneName)
+    {
+        _audioSource.Play();
+
+        SceneManager.LoadScene(sceneName);
+    }
+
     public void QuitGame() => Application.Quit();
 }

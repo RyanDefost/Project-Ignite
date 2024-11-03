@@ -8,7 +8,7 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private GameObject _centerPosition;
     [Space]
     [SerializeField] private float _maxDistance = 20;
-    private float _distance = 5;
+    private float _distance = 10;
 
     [Header("Speed")]
     [SerializeField] private float _mouseSpeed = 5;

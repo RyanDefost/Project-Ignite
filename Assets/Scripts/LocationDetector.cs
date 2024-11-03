@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class LocationDetector : MonoBehaviour
 {
-    [SerializeField] private float _activateDistance;
-
+    [SerializeField] private AudioSource _source;
     [SerializeField] private GameObject canvas;
+
+    [Space]
+    [SerializeField] private float _activateDistance;
 
     [SerializeField] private List<GameObject> _FoundTexture;
     [SerializeField] private List<GameObject> _destinationObjects;
@@ -35,6 +37,41 @@ public class LocationDetector : MonoBehaviour
             return;
 
         _distance = ComparePositions(_camera.transform, _destinations[_currentDestination].transform);
+        SetDistanceVolume();
+    }
+    public void TrySolveObject()
+    {
+        if (_distance <= _activateDistance && !_levelFinished)
+        {
+            _source.Play();
+            StartCoroutine(SetFinalPosition());
+        }
+    }
+
+    public void LockPositionSnap()
+    {
+        _levelFinished = true;
+        _cameraMovement.CanReceiveInput = true;
+
+        _FoundTexture[_currentDestination].SetActive(false);
+    }
+
+    public void SetNextObject()
+    {
+        if (_currentDestination == _destinationObjects.Count - 1)
+        {
+            _sceneSwitcher.SetScene("EndScene");
+            return;
+        }
+
+        _FoundTexture[_currentDestination].SetActive(false);
+        _destinationObjects[_currentDestination].SetActive(false);
+        _destinationObjects[_currentDestination + 1].SetActive(true);
+        _currentDestination++;
+
+        canvas.SetActive(false);
+        _cameraMovement.CanReceiveInput = true;
+        _levelFinished = false;
     }
 
     private float ComparePositions(Transform cameraTransform, Transform destinationTransform)
@@ -43,12 +80,6 @@ public class LocationDetector : MonoBehaviour
         Vector3 destinationPosition = destinationTransform.position;
 
         return Vector3.Distance(cameraPosition, destinationPosition);
-    }
-
-    public void TrySolveObject()
-    {
-        if (_distance <= _activateDistance && !_levelFinished)
-            StartCoroutine(SetFinalPosition());
     }
 
     /// <summary>
@@ -77,29 +108,20 @@ public class LocationDetector : MonoBehaviour
         canvas.SetActive(true);
     }
 
-    public void LockPositionSnap()
+    /// <summary>
+    /// Based on the maxValue sets the music volume louder or quieter based on the distance.
+    /// </summary>
+    private void SetDistanceVolume()
     {
-        _levelFinished = true;
-        _cameraMovement.CanReceiveInput = true;
+        float maxValue = 20;
 
-        _FoundTexture[_currentDestination].SetActive(false);
+        if (_distance < maxValue)
+            _destinationObjects[_currentDestination].GetComponent<AudioSource>().volume = 0;
+
+        float distancePercentage = (_distance / maxValue) * 100;
+        float SoundPercentage = 100 - distancePercentage;
+
+        _destinationObjects[_currentDestination].GetComponent<AudioSource>().volume = SoundPercentage / 100;
     }
 
-    public void SetNextObject()
-    {
-        if (_currentDestination == _destinationObjects.Count - 1)
-        {
-            _sceneSwitcher.SetFinalScene();
-            return;
-        }
-
-        _FoundTexture[_currentDestination].SetActive(false);
-        _destinationObjects[_currentDestination].SetActive(false);
-        _destinationObjects[_currentDestination + 1].SetActive(true);
-        _currentDestination++;
-
-        canvas.SetActive(false);
-        _cameraMovement.CanReceiveInput = true;
-        _levelFinished = false;
-    }
 }
